@@ -1,0 +1,6 @@
+[submodule "ext/Keyrune"]
+	path = ext/Keyrune
+	url = https://github.com/andrewgioia/Keyrune.git
+[submodule "ext/Mana"]
+	path = ext/Mana
+	url = https://github.com/andrewgioia/Mana.git
