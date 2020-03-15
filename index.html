@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>MtG: Crafter</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+	<link rel="stylesheet" type="text/css" media="print" href="main.css" />
+
+	<link href="ext/Keyrune/css/keyrune.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div class="container">
+
+	<script>
+	let expansions = [
+		{name: "Theros Beyond Death",        code: "thb", year: 2020, month: 1, day: 24, count:358, c:108, u: 82, r:65, m:18, lands:15, special:0, tokens:14},
+		{name: "Throne of Eldraine",         code: "eld", year: 2019, month: 10,day:  4, count:397, c:112, u: 82, r:69, m:22, lands:20, special:0, tokens:20},
+		{name: "Commander 2019",             code: "c19", year: 2019, month: 8, day: 23, count:302, c:63,  u: 76, r:119,m:34, lands:5,  special:0, tokens:29},
+		{name: "Core Set 2020",              code: "m20", year: 2019, month: 7, day: 12, count:345, c:157, u: 86, r:65, m:21, lands:20, special:0, tokens:12},
+		{name: "Modern Horizons",            code: "mh1", year: 2019, month: 6, day: 14, count:255, c:106, u: 80, r:54, m:15, lands:5,  special:0, tokens:21},
+		{name: "War of the Spark",           code: "war", year: 2019, month: 5, day:  3, count:311, c:110, u: 82, r:55, m:18, lands:15, special:0, tokens:19},
+		{name: "Ravnica Allegiance",         code: "rna", year: 2019, month: 1, day: 25, count:273, c:113, u: 82, r:55, m:18, lands:5,  special:0, tokens:13},
+		{name: "Ultimate Masters",           code: "uma", year: 2018, month:12, day:  7, count:254, c:101, u: 80, r:53, m:20, lands:0,  special:0, tokens:16},
+		{name: "Guilds of Ravnica",          code: "grn", year: 2018, month:10, day:  5, count:273, c:113, u: 82, r:55, m:18, lands:5,  special:0, tokens:8},
+		{name: "Commander 2018",             code: "c18", year: 2018, month: 8, day:  9, count:307, c:72,  u: 87, r:118,m:20, lands:15, special:0, tokens:26},
+		{name: "Core Set 2019",              code: "m19", year: 2018, month: 7, day: 13, count:314, c:128, u: 86, r:63, m:22, lands:20, special:0, tokens:18},
+		{name: "Battlebond",                 code: "bbd", year: 2018, month: 6, day:  8, count:256, c:106, u: 80, r:53, m:15, lands:5,  special:0, tokens:8},
+		{name: "Dominaria",                  code: "dom", year: 2018, month: 4, day: 27, count:269, c:100, u: 80, r:53, m:15, lands:20, special:0, tokens:16},
+		{name: "Masters 25",                 code: "a25", year: 2018, month: 3, day: 16, count:249, c:101, u: 80, r:53, m:15, lands:0,  special:0, tokens:16},
+		{name: "Rivals of Ixalan",           code: "rix", year: 2018, month: 1, day: 19, count:196, c: 70, u: 60, r:48, m:13, lands:5 , special:0, tokens:7},
+		{name: "Unstable",                   code: "ust", year: 2017, month:12, day:  8, count:268, c:102, u: 90, r:61, m:15, lands:5,  special:0, tokens:20},
+		{name: "Iconic Masters",             code: "ima", year: 2017, month:11, day: 17, count:249, c:101, u: 80, r:63, m:15, lands:20, special:0, tokens:7},
+		{name: "Ixalan",                     code: "xln", year: 2017, month: 9, day: 29, count:279, c:101, u: 80, r:63, m:15, lands:20, special:0, tokens:11},
+		{name: "Hour of Devastation",        code: "hou", year: 2017, month: 7, day: 14, count:199, c: 70, u: 60, r:42, m:12, lands:15, special:24, tokens:14},
+		{name: "Amonkhet",                   code: "akh", year: 2017, month: 4, day: 28, count:269, c:101, u: 80, r:53, m:15, lands:20, special:30, tokens:27},
+		{name: "Modern Masters 2017",        code: "mm3", year: 2017, month: 3, day: 17, count:249, c:101, u: 80, r:53, m:15, lands:00, special:00, tokens:21},
+		{name: "Aether Revolt",              code: "aer", year: 2017, month: 1, day: 20, count:184, c: 70, u: 60, r:42, m:12, lands:0,  special:24, tokens:4},
+		{name: "Kaladesh",                   code: "kld", year: 2016, month: 9, day: 30, count:264, c:101, u: 80, r:53, m:15, lands:15, special:30, tokens:13},
+		{name: "Conspiracy: Take the Crown", code: "cn2", year: 2016, month: 8, day: 26, count:221, c: 90, u: 67, r:50, m:14, lands:0,  special:80, tokens:12},
+		{name: "Eldritch Moon",              code: "emn", year: 2016, month: 7, day: 22, count:205, c: 74, u: 70, r:47, m:14, lands:0,  special:0,  tokens:11},
+		{name: "Eternal Masters",            code: "ema", year: 2016, month: 6, day: 10, count:249, c:101, u: 80, r:53, m:15, lands:0,  special:0,  tokens:16},
+		{name: "Shadows over Innistrad",     code: "soi", year: 2016, month: 4, day:  8, count:297, c:105, u:100, r:59, m:18, lands:15, special:0,  tokens:11},
+		{name: "Oath of the Gatewatch",      code: "ogw", year: 2016, month: 1, day: 22, count:184, c: 70, u: 60, r:42, m:12, lands:1,  special:20, tokens:11},
+		{name: "Battle for Zendikar",        code: "bfz", year: 2015, month: 9, day: 26, count:274, c:101, u: 80, r:53, m:15, lands:25, special:25, tokens:14},
+		{name: "Magic Origins",              code: "ori", year: 2015, month: 7, day: 17, count:272, c:101, u: 80, r:55, m:16, lands:20, special:0,  tokens:15},
+		{name: "Modern Masters 2015",        code: "mm2", year: 2015, month: 5, day: 22, count:249, c:101, u: 80, r:53, m:15, lands:00, special:00, tokens:16},
+		{name: "Dragons of Tarkir",          code: "dtk", year: 2015, month: 3, day: 27, count:264, c:101, u: 80, r:53, m:15, lands:15, special:0,  tokens:8},
+		{name: "Fate Reforged",              code: "frf", year: 2015, month: 1, day: 23, count:185, c: 70, u: 60, r:35, m:10, lands:10, special:0,  tokens:4},
+		{name: "Khans of Tarkir",            code: "ktk", year: 2014, month: 9, day: 26, count:269, c:101, u: 80, r:53, m:15, lands:20, special:0,  tokens:13},
+		{name: "Magic 2015",                 code: "m15", year: 2014, month: 7, day: 18, count:269, c:101, u: 80, r:53, m:15, lands:20, special:0,  tokens:14},
+		{name: "Conspiracy",                 code: "cns", year: 2014, month: 6, day:  6, count:210, c: 89, u: 68, r:43, m:10, lands:0,  special:65, tokens:9},
+		{name: "Journey into Nyx",           code: "jou", year: 2014, month: 5, day:  2, count:165, c: 60, u: 60, r:35, m:10, lands:0,  special:0,  tokens:6},
+		{name: "Born of the Gods",           code: "bng", year: 2014, month: 2, day:  7, count:165, c: 60, u: 60, r:35, m:10, lands:0,  special:0,  tokens:11},
+		{name: "Theros",                     code: "ths", year: 2013, month: 9, day: 27, count:249, c:101, u: 60, r:53, m:15, lands:20, special:0,  tokens:11},
+		{name: "Magic 2014",                 code: "m14", year: 2013, month: 7, day: 19, count:249, c:101, u: 60, r:53, m:15, lands:20, special:0,  tokens:13},
+		{name: "Modern Masters",             code: "mma", year: 2013, month: 7, day:  7, count:229, c:101, u: 60, r:53, m:15, lands:00, special:0,  tokens:16},
+		{name: "Dragon's Maze",              code: "dgm", year: 2013, month: 5, day:  3, count:156, c: 70, u: 40, r:35, m:11, lands:0,  special:0,  tokens:1},
+		{name: "Gatecrash",                  code: "gtc", year: 2013, month: 2, day:  1, count:249, c:101, u: 80, r:53, m:15, lands:0,  special:0,  tokens:8},
+		{name: "Return to Ravnica",          code: "rtr", year: 2012, month:10, day:  5, count:274, c:101, u: 80, r:53, m:15, lands:25, special:0,  tokens:12},
+		{name: "Magic 2013",                 code: "m13", year: 2012, month: 7, day: 13, count:249, c:101, u: 60, r:53, m:15, lands:20, special:0,  tokens:11},
+		{name: "Avacyn Restored",            code: "avr", year: 2012, month: 5, day:  4, count:244, c:101, u: 60, r:53, m:15, lands:15, special:0,  tokens:8},
+		{name: "Dark Ascension",             code: "dka", year: 2012, month: 2, day:  3, count:158, c: 64, u: 44, r:38, m:12, lands:15, special:0,  tokens:4},
+		{name: "Innistrad",                  code: "isd", year: 2011, month: 9, day: 30, count:264, c:107, u: 67, r:59, m:16, lands:15, special:0,  tokens:13},
+		{name: "Magic 2012",                 code: "m12", year: 2011, month: 7, day: 15, count:249, c:101, u: 60, r:53, m:15, lands:20, special:0,  tokens:7},
+		{name: "New Phyrexia",               code: "nph", year: 2011, month: 5, day: 13, count:175, c: 60, u: 60, r:35, m:10, lands:10, special:0,  tokens:5},
+		{name: "Mirrodin Besieged",          code: "mbs", year: 2011, month: 2, day:  4, count:155, c: 60, u: 40, r:35, m:10, lands:10, special:0,  tokens:6},
+		{name: "Scars of Mirrodin",          code: "som", year: 2010, month:10, day:  1, count:249, c:101, u: 60, r:53, m:15, lands:20, special:0,  tokens:10},
+		{name: "Magic 2011",                 code: "m11", year: 2010, month: 7, day: 16, count:249, c:101, u: 60, r:53, m:15, lands:20, special:0,  tokens:6},
+		{name: "Rise of the Eldrazi",        code: "roe", year: 2010, month: 4, day: 23, count:248, c:100, u: 60, r:53, m:15, lands:20, special:0,  tokens:7},
+		{name: "Worldwake",                  code: "wwk", year: 2010, month: 2, day:  5, count:145, c: 60, u: 40, r:35, m:10, lands:0,  special:0,  tokens:6},
+		{name: "Zendikar",                   code: "zen", year: 2009, month:10, day:  2, count:249, c:101, u: 60, r:53, m:15, lands:20, special:0,  tokens:11},
+		{name: "Magic 2010",                 code: "m10", year: 2009, month: 7, day: 17, count:249, c:101, u: 60, r:53, m:15, lands:20, special:0,  tokens:8},
+		{name: "Alara Reborn",               code: "arb", year: 2009, month: 4, day: 30, count:145, c: 60, u: 40, r:35, m:10, lands:0,  special:0,  tokens:4},
+		{name: "Conflux",                    code: "con", year: 2009, month: 2, day:  6, count:145, c: 60, u: 40, r:35, m:10, lands:0,  special:0,  tokens:2},
+		{name: "Shards of Alara",            code: "ala", year: 2008, month:10, day:  3, count:249, c:101, u: 60, r:53, m:15, lands:20, special:0,  tokens:10},
+		{name: "Eventide",                   code: "eve", year: 2008, month: 7, day: 25, count:180, c: 60, u: 60, r:60, m:0,  lands:0,  special:0,  tokens:7},
+		{name: "Shadowmoor",                 code: "shm", year: 2008, month: 5, day:  2, count:301, c:121, u: 80, r:80, m:0,  lands:20, special:0,  tokens:12},
+		{name: "Morningtide",                code: "mor", year: 2008, month: 2, day:  1, count:150, c: 60, u: 40, r:50, m:0,  lands:0,  special:0,  tokens:3},
+		{name: "Lorwyn",                     code: "lrw", year: 2007, month:10, day: 12, count:301, c:121, u: 80, r:80, m:0,  lands:20, special:0,  tokens:11},
+		{name: "Tenth Edition",              code: "10e", year: 2007, month: 7, day: 13, count:383, c:121, u:121, r:121,m:0,  lands:20, special:0,  tokens:6},
+		{name: "Future Sight",               code: "fut", year: 2007, month: 5, day:  4, count:180, c: 60, u: 60, r:60, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Planar Chaos",               code: "plc", year: 2007, month: 2, day:  2, count:165, c: 60, u: 55, r:50, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Time Spiral",                code: "tsp", year: 2006, month:10, day:  6, count:422, c:121, u: 80, r:80, m:0,  lands:20, special:121,tokens:0},
+		{name: "Coldsnap",                   code: "csp", year: 2006, month: 7, day: 21, count:155, c: 60, u: 55, r:40, m:0,  lands:5,  special:0,  tokens:1},
+		{name: "Dissension",                 code: "dis", year: 2006, month: 5, day:  5, count:180, c: 60, u: 60, r:60, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Guildpact",                  code: "gpt", year: 2006, month: 2, day:  3, count:165, c: 55, u: 55, r:55, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Ravnica: City of Guilds",    code: "rav", year: 2006, month:10, day:  7, count:306, c:110, u: 88, r:88, m:0,  lands:20, special:0,  tokens:0},
+		{name: "Ninth Edition",              code: "9ed", year: 2005, month: 7, day: 29, count:359, c:110, u:110, r:110,m:0,  lands:20, special:0,  tokens:0},
+		{name: "Saviors of Kamigawa",        code: "sok", year: 2005, month: 6, day:  3, count:165, c: 55, u: 55, r:55, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Betrayers of Kamigawa",      code: "bok", year: 2005, month: 2, day:  4, count:165, c: 55, u: 55, r:55, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Unhinged",                   code: "unh", year: 2004, month:11, day: 19, count:141, c: 55, u: 40, r:40, m:0,  lands:5,  special:0,  tokens:0},
+		{name: "Champions of Kamigawa",      code: "chk", year: 2004, month:10, day:  1, count:306, c:110, u: 88, r:88, m:0,  lands:20, special:0,  tokens:0},
+		{name: "Fifth Dawn",                 code: "5dn", year: 2004, month: 6, day:  4, count:165, c: 55, u: 55, r:55, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Darksteel",                  code: "dst", year: 2004, month: 2, day:  6, count:165, c: 55, u: 55, r:55, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Mirrodin",                   code: "mrd", year: 2003, month:10, day:  3, count:306, c:110, u: 88, r:88, m:0,  lands:20, special:0,  tokens:0},
+		{name: "Eight Edition",              code: "8ed", year: 2003, month: 7, day: 28, count:357, c:110, u:110, r:110,m:0,  lands:20, special:0,  tokens:0},
+		{name: "Scourge",                    code: "scg", year: 2003, month: 5, day: 17, count:143, c: 55, u: 44, r:44, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Legions",                    code: "lgn", year: 2003, month: 2, day:  3, count:145, c: 55, u: 45, r:45, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Onslaught",                  code: "ons", year: 2002, month:10, day:  7, count:350, c:110, u:110, r:110,m:0,  lands:20, special:0,  tokens:0},
+		{name: "Judgement",                  code: "jud", year: 2002, month: 5, day: 27, count:143, c: 55, u: 44, r:44, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Torment",                    code: "tor", year: 2002, month: 2, day:  4, count:143, c: 55, u: 44, r:44, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Odyssey",                    code: "ody", year: 2001, month:10, day:  1, count:350, c:110, u:110, r:110,m:0,  lands:20, special:0,  tokens:0},
+		{name: "Apocalypse",                 code: "apc", year: 2001, month: 6, day:  4, count:143, c: 55, u: 44, r:44, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Seventh Edition",            code: "7ed", year: 2001, month: 4, day: 11, count:350, c:110, u:110, r:110,m:0,  lands:20, special:0,  tokens:0},
+		{name: "Planeshift",                 code: "pls", year: 2001, month: 2, day:  5, count:143, c: 55, u: 44, r:44, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Invasion",                   code: "inv", year: 2000, month:10, day:  2, count:350, c:110, u:110, r:110,m:0,  lands:20, special:0,  tokens:0},
+		{name: "Prophecy",                   code: "pcy", year: 2000, month: 6, day:  5, count:143, c: 55, u: 44, r:44, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Nemesis",                    code: "nem", year: 2000, month: 2, day: 14, count:143, c: 55, u: 44, r:44, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Mercadian Masques",          code: "mmq", year: 1999, month:10, day:  4, count:350, c:110, u:110, r:110,m:0,  lands:20, special:0,  tokens:0},
+		{name: "Urza's Destiny",             code: "uds", year: 1999, month: 6, day:  7, count:143, c: 55, u: 44, r:44, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Classic Sixth Edition",      code: "6ed", year: 1999, month: 4, day: 28, count:350, c:110, u:110, r:110,m:0,  lands:20, special:0,  tokens:0},
+		{name: "Urza's Legacy",              code: "ulg", year: 1999, month: 2, day: 15, count:143, c: 55, u: 44, r:44, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Urza's Saga",                code: "usg", year: 1998, month:10, day: 12, count:350, c:110, u:110, r:110,m:0,  lands:20, special:0,  tokens:0},
+		{name: "Unglued",                    code: "ugl", year: 1998, month: 8, day: 17, count: 88, c: 33, u: 22, r: 28,m:0,  lands: 5, special:0,  tokens:0},
+		{name: "Exodus",                     code: "exo", year: 1998, month: 6, day:  5, count:143, c: 55, u: 44, r:44, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Stronghold",                 code: "sth", year: 1998, month: 3, day:  2, count:143, c: 55, u: 44, r:44, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Tempest",                    code: "tmp", year: 1997, month:10, day: 13, count:350, c:110, u:110, r:110,m:0,  lands:20, special:0,  tokens:0},
+		{name: "Weatherlight",               code: "wth", year: 1997, month: 6, day:  9, count:167, c: 62, u: 55, r:50, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Fifth Edition",              code: "5ed", year: 1997, month: 3, day: 24, count:449, c:165, u:132, r:132,m:0,  lands:20, special:0,  tokens:0},
+		{name: "Visions",                    code: "vis", year: 1997, month: 2, day:  3, count:167, c: 62, u: 55, r:50, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Mirage",                     code: "mir", year: 1996, month:10, day:  7, count:350, c:110, u:110, r:110,m:0,  lands:20, special:0,  tokens:0},
+		{name: "Alliances",                  code: "all", year: 1996, month: 6, day: 10, count:199, c:100, u: 43, r:46, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Homelands",                  code: "hml", year: 1995, month:10, day: 14, count:140, c: 71, u: 27, r:42, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Ice Age",                    code: "ice", year: 1995, month: 6, day:  1, count:383, c:121, u:121, r:121,m:0,  lands:20, special:0,  tokens:0},
+		{name: "Fourth Edition",             code: "4ed", year: 1995, month: 4, day:  1, count:378, c:121, u:121, r:121,m:0,  lands:15, special:0,  tokens:0},
+		{name: "Fallen Empires",             code: "fem", year: 1994, month:11, day:  1, count:187, c:121, u: 30, r:36, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "The Dark",                   code: "drk", year: 1994, month: 8, day:  1, count:119, c: 40, u: 44, r:35, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Legends",                    code: "leg", year: 1994, month: 6, day:  1, count:310, c: 75, u:114, r:121,m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Revised Edition",            code: "3ed", year: 1994, month: 4, day:  1, count:306, c: 75, u: 95, r:121,m:0,  lands:15, special:0,  tokens:0},
+		{name: "Antiquities",                code: "atq", year: 1994, month: 3, day:  1, count:100, c: 30, u: 44, r:26, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Arabian Nights",             code: "arn", year: 1993, month:12, day:  1, count: 92, c: 41, u: 19, r:32, m:0,  lands:0,  special:0,  tokens:0},
+		{name: "Unlimited Edition",          code: "2ed", year: 1993, month:12, day:  1, count:302, c: 75, u: 95, r:117,m:0,  lands:15, special:0,  tokens:0},
+		{name: "Limited Edition Beta",       code: "leb", year: 1993, month:10, day:  1, count:302, c: 75, u: 95, r:117,m:0,  lands:15, special:0,  tokens:0},
+		{name: "Limited Edition Alpha",      code: "lea", year: 1993, month: 8, day:  5, count:295, c: 74, u: 95, r:116,m:0,  lands:10, special:0,  tokens:0},
+		];
+
+	for (i = 0; i != expansions.length; ++i)
+	{
+		const e = expansions[i];
+		const upperCaseCode = e["code"].toUpperCase();
+		const c = ("" + e["c"]).padStart(3,'0');
+		const u = ("" + e["u"]).padStart(3,'0');
+		const r = ("" + e["r"]).padStart(3,'0');
+		const m = ("" + e["m"]).padStart(2,'0');
+		const s = ("" + e["special"]).padStart(2,'0');
+		const l = ("" + e["lands"]).padStart(2,'0');
+		const t = ("" + e["tokens"]).padStart(2,'0');
+
+		const month = ("" + e["month"]).padStart(2,'0');
+
+		const desc = `${upperCaseCode}•${e["year"]}-${month}•${e["count"]}T•${c}C•${u}U•${r}R•${m}M•${l}L•${s}S•${t}TK`
+		document.write(`<div class="card"><div class="contents"><div class="name">${e["name"]}</div><i class="ss ss-6x ss-${e["code"]}"></i><div class="description">${desc}</div></div></div>`);
+	}
+
+	</script>
+
+	</div>
+
+
+</body>
+</html>
+
